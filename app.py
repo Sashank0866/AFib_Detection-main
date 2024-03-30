@@ -1,10 +1,12 @@
 from flask_cors import CORS
 from flask import Flask, jsonify
 from joblib import load
+from dotenv import load_dotenv
 import mysql.connector
 import os
 import json
 import logging
+
 
 app = Flask(__name__)
 
@@ -17,12 +19,14 @@ logger = logging.getLogger(__name__)
 
 ###Check the Databse Configuration
 
+load_dotenv()
+
 # Set up MySQL connection parameters
 db_config = {
-    "host": os.environ.get("DB_HOST"),
-    "user": os.environ.get("DB_USER"),
-    "password": os.environ.get("DB_PASSWORD"),
-    "database": os.environ.get("DB_NAME")
+    "host": os.getenv("DB_HOST"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME")
 }
 
 @app.route('/<patient_id>', methods=['GET'])
