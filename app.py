@@ -10,7 +10,7 @@ import logging
 
 app = Flask(__name__)
 
-CORS(app)
+
 # Load the trained RandomForest model
 model = load('RandomForest_best_model.pkl')
 
@@ -123,7 +123,9 @@ def predict_by_patient_id(patient_id):
         if connection:
             connection.close()
 
-
+CORS(app, origins=[
+    'http://localhost:3000'
+])
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)
